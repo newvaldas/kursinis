@@ -1,4 +1,3 @@
-
 from english_words import english_words_set
 from tkinter import *
 import tkinter.font as font
@@ -19,22 +18,20 @@ def new_game() -> None:
     win.title("Let's start the test!")
     win.config(bg="dark blue")
     
-
     def game_time() -> None:
         global time
-    
         time += 1
         clock.configure(text=time)
         clock.after(1000, game_time)
         
-    def restart_game(event):
+    def restart_game() -> None: #restart button function
+        global time, score, count_words
         score = 0
         time = 0
         count_words = 0
-        start_game(event)
-        
-        
-       
+        win.destroy()    
+        new_game()
+          
     def start_game(event):
         logging.info(f"User input word: {user_input.get()} ") # loginimas
         global score, count_words
@@ -75,8 +72,6 @@ def new_game() -> None:
             clock_label.destroy()
             clock.destroy() 
     
-  
-
     label=Label(win, bg="dark blue", text="Test your typing skills!", font=("azure", 25, "bold",), fg="white", width=40)
     label.place(x=10, y=10)
 
@@ -119,11 +114,11 @@ label1 = Label(frame1, text="Welcome to \n Speed Typing Test!", font=("Arial", 2
 label1.place(relx=0,rely=0, relwidth=1, relheight=1)
 
 start_btn = Button(win, text="Start test", bg="azure", fg="black", width=15, height=2, command=new_game)
-start_btn['font'] = font.Font(size=20)
+start_btn['font'] = font.Font(size=20, weight="bold", underline=True)
 start_btn.place(x=230, y=240)
 
 exit_btn = Button(win, text="Exit", bg="azure", fg="green", width=15, height=2, command=win.destroy)
-exit_btn['font'] = font.Font(size=20)
+exit_btn['font'] = font.Font(size=20, weight="bold", underline=True)
 exit_btn.place(x=230, y=340)
 
 win.mainloop()
