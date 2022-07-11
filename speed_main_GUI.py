@@ -21,7 +21,7 @@ def new_game() -> None:
     win.config(bg="dark blue")
     
 
-    def game_time():
+    def game_time() -> None:
         global time, score, missed_word, count_words
     
         if(count_words <= 10): # jei count_words maziau uz 10 atnaujina laika
@@ -59,6 +59,7 @@ def new_game() -> None:
 
     
     def start_game(event):
+        logging.info(f"User input word: {user_input.get()} ") # loginimas
         global score, missed_word, count_words
         if time == 0:
             random.shuffle(words)
@@ -66,12 +67,12 @@ def new_game() -> None:
             user_input.delete(0, END)
             game_time()
         
-        if  user_input.get()== next_word["text"]: #tikrina zodis ar ivestas teisingas
-    
+        if user_input.get() == next_word["text"]: #tikrina zodis ar ivestas teisingas
             score += 1
             score_board.configure(text=score)
-            count_words +=1
-        if(count_words <= 10):
+            
+        count_words +=1 # bendra zodziu ivedimas
+        if (count_words <= 10):
             random.shuffle(words)
             next_word.configure(text=words[0]) #pirmas words listo elementas "next_word" lable
             user_input.delete(0, END)
@@ -100,7 +101,7 @@ def new_game() -> None:
     user_input=Entry(win, font=("azure", 25, "italic bold"), border=10, justify="center", relief=GROOVE)
     user_input.place(x=150, y=330)
     user_input.focus_set()
-    logging.info(f"User input word: {user_input} ") 
+    
     
     
     win.bind("<Return>", start_game)
