@@ -7,7 +7,6 @@ from PIL import ImageTk, Image
 import logging
 
 score = 0
-missed_word = 0
 time = 0
 count_words = 0
 words = list(english_words_set)
@@ -28,10 +27,17 @@ def new_game() -> None:
         clock.configure(text=time)
         clock.after(1000, game_time)
         
+    def restart_game(event):
+        score = 0
+        time = 0
+        count_words = 0
+        start_game(event)
+        
+        
        
     def start_game(event):
         logging.info(f"User input word: {user_input.get()} ") # loginimas
-        global score, missed_word, count_words
+        global score, count_words
         if time == 0:
             random.shuffle(words)
             next_word.configure(text=words[0]) #pirmas words listo elementas "next_word" lable
@@ -58,7 +64,7 @@ def new_game() -> None:
             exit_btn['font'] = font.Font(size=20)
             exit_btn.place(x=330, y=350)
             
-            restart_btn = Button(win, text="Restart", bg="azure", fg="red", width=15, height=2, command=new_game)
+            restart_btn = Button(win, text="Restart", bg="azure", fg="red", width=15, height=2, command=restart_game)
             restart_btn['font'] = font.Font(size=20)
             restart_btn.place(x=130, y=350)
         
