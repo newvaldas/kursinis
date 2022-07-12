@@ -1,3 +1,4 @@
+from click import style
 from english_words import english_words_set
 from tkinter import *
 import tkinter.font as font
@@ -16,12 +17,12 @@ logging.basicConfig(filename='speed_typing.log', level=logging.INFO, format='%(a
 def new_game() -> None:
     win = Tk()  
     win.geometry("700x500")
-    win.title("Let's start the test!")
-    win.config(bg="dark blue")
-    score = 0
-    time = 0
-    count_words = 0
-    words = list(english_words_set)
+    win.title("Have fun!")
+    win.config(bg="#007ACC")
+    # score = 0
+    # time = 0
+    # count_words = 0
+    # words = list(english_words_set)
     
     def game_time() -> None:
         global time
@@ -50,24 +51,24 @@ def new_game() -> None:
             score += 1
             score_board.configure(text=score)
             
-        count_words +=1 # bendra zodziu ivedimas
+        count_words +=1 # bendras  zodziu skaicius ivedimas
         if (count_words <10):
             random.shuffle(words)
             next_word.configure(text=words[0]) #pirmas words listo elementas "next_word" lable
             user_input.delete(0, END)
             
         else:
-            result = Label(win, text="Test results:", font=("Arial", 24, "bold"), fg="dark blue")
+            result = Label(win, text="Test results:", font=("Arial", 24, "bold"), fg="dark blue", bg="#007ACC")
             result.place(x=230, y=150)
             result.configure(text="Time taken = {} \n Your score = {} \n Missed words = {}"
                             .format(time, score, count_words-score))
             
             exit_btn = Button(win, text="Exit", bg="azure", fg="green", width=15, height=2, command=win.destroy)
-            exit_btn['font'] = font.Font(size=20)
+            exit_btn['font'] = font.Font(size=28)
             exit_btn.place(x=330, y=350)
             
             restart_btn = Button(win, text="Restart", bg="azure", fg="red", width=15, height=2, command=restart_game)
-            restart_btn['font'] = font.Font(size=20)
+            restart_btn['font'] = font.Font(size=28)
             restart_btn.place(x=130, y=350)
         
             next_word.destroy()
@@ -77,23 +78,23 @@ def new_game() -> None:
             clock_label.destroy()
             clock.destroy() 
     
-    label=Label(win, bg="dark blue", text="Test your typing skills!", font=("azure", 25, "bold",), fg="white", width=40)
+    label=Label(win, bg="dark blue", text="Show your typing skills!", font=("azure", 25, "bold",), fg="white", width=40)
     label.place(x=10, y=10)
 
-    next_word=Label(win, text="Welcome, ! \n Press enter button to start and after you type the word.",
-                    font=("azure", 20, "bold"), fg="black", justify="center")
-    next_word.place(x=60, y=240)
+    next_word=Label(win, text="Press enter button to start and after you type the word!",
+                    font=("azure", 20, "bold"), fg="white", justify="center", bg="#007ACC")
+    next_word.place(x=100, y=240)
 
-    score_label=Label(win, text="Your score: ", font=("azure", 25, "italic bold"), fg="red")
-    score_label.place(x=10, y=100)
+    score_label=Label(win, text="Your score: ", font=("azure", 28, "italic bold"), fg="red", bg="#007ACC")
+    score_label.place(x=20, y=100)
 
-    score_board=Label(win, text=score, font=("azure",  25, "italic bold"), fg="blue")
+    score_board=Label(win, text=score, font=("azure",  28, "italic bold"), fg="blue", bg="#007ACC")
     score_board.place(x=100, y=180)
 
-    clock_label=Label(win,text="Time Passed:", font=("azure", 25, "italic bold"), fg="red")
+    clock_label=Label(win,text="Time Passed:", font=("azure", 28, "italic bold"), fg="red", bg="#007ACC")
     clock_label.place(x=500, y=100)
 
-    clock=Label(win, text=time, font=("azure", 25, "italic bold"), fg="blue")
+    clock=Label(win, text=time, font=("azure", 28, "italic bold"), fg="blue", bg="#007ACC")
     clock.place(x=560, y=180)
 
     user_input=Entry(win, font=("azure", 25, "italic bold"), border=10, justify="center", relief=GROOVE)
