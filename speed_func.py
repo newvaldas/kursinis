@@ -5,18 +5,23 @@ import random
 from PIL import ImageTk, Image
 import logging
 
+
 score = 0
 time = 0
 count_words = 0
 words = list(english_words_set)
 
-logging.basicConfig(filename='typing_test.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
+logging.basicConfig(filename='speed_typing.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
 def new_game() -> None:
     win = Tk()  
     win.geometry("700x500")
     win.title("Let's start the test!")
     win.config(bg="dark blue")
+    score = 0
+    time = 0
+    count_words = 0
+    words = list(english_words_set)
     
     def game_time() -> None:
         global time
@@ -32,7 +37,7 @@ def new_game() -> None:
         win.destroy()    
         new_game()
           
-    def start_game(event):
+    def start_game(event) -> None:
         logging.info(f"User input word: {user_input.get()} ") # loginimas
         global score, count_words
         if time == 0:
@@ -75,7 +80,7 @@ def new_game() -> None:
     label=Label(win, bg="dark blue", text="Test your typing skills!", font=("azure", 25, "bold",), fg="white", width=40)
     label.place(x=10, y=10)
 
-    next_word=Label(win, text="Welcome! \n Press enter button to start and after you type the word.",
+    next_word=Label(win, text="Welcome, ! \n Press enter button to start and after you type the word.",
                     font=("azure", 20, "bold"), fg="black", justify="center")
     next_word.place(x=60, y=240)
 
@@ -97,34 +102,3 @@ def new_game() -> None:
     
     win.bind("<Return>", start_game)
     win.mainloop()
-
-win = Tk()  # pagarindinis langas su start ir exit mygtukais
-win.geometry("700x500")
-win.title("Speed Typing Test")
-new_image = Image.open("./pictures/picture1.jpg") # background
-new_bg = ImageTk.PhotoImage(new_image)
-
-lbl = Label(win,image=new_bg)
-lbl.place(x=-230, y=-150)
-
-frame1 = Frame(win,bg="#F5ECE1", relief=RAISED)
-frame1.place(relx=0.2,rely=0.2,relwidth=0.6,relheight=0.15)# laukelio dydis
-
-label1 = Label(frame1, text="Welcome to \n Speed Typing Test!", font=("Arial", 24, "bold"))
-label1.place(relx=0,rely=0, relwidth=1, relheight=1)
-
-start_btn = Button(win, text="Start test", bg="azure", fg="black", width=15, height=2, command=new_game)
-start_btn['font'] = font.Font(size=20, weight="bold", underline=True)
-start_btn.place(x=230, y=240)
-
-exit_btn = Button(win, text="Exit", bg="azure", fg="green", width=15, height=2, command=win.destroy)
-exit_btn['font'] = font.Font(size=20, weight="bold", underline=True)
-exit_btn.place(x=230, y=340)
-
-win.mainloop()
-
-
-
-          
-
-
