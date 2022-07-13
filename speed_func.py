@@ -1,9 +1,7 @@
-from click import style
 from english_words import english_words_set
-from tkinter import *
+from tkinter import Tk, Label, Button, Entry, END, GROOVE
 import tkinter.font as font
 import random
-from PIL import ImageTk, Image
 import logging
 
 
@@ -19,12 +17,8 @@ def new_game() -> None:
     win.geometry("700x500")
     win.title("Have fun!")
     win.config(bg="#007ACC")
-    # score = 0
-    # time = 0
-    # count_words = 0
-    # words = list(english_words_set)
-    
-    def game_time() -> None:
+   
+    def game_time() -> None: # game time function update time every second.
         global time
         time += 1
         clock.configure(text=time)
@@ -38,27 +32,28 @@ def new_game() -> None:
         win.destroy()    
         new_game()
           
-    def start_game(event) -> None:
-        logging.info(f"User input word: {user_input.get()} ") # loginimas
+    def start_game(event) -> None: #start typing test window 
+        logging.info(f"User input word: {user_input.get()} ")
         global score, count_words
         if time == 0:
             random.shuffle(words)
-            next_word.configure(text=words[0]) #pirmas words listo elementas "next_word" lable
+            next_word.configure(text=words[0]) 
             user_input.delete(0, END)
             game_time()
-        
-        if user_input.get() == next_word["text"]: #tikrina zodis ar ivestas teisingas
+            
+        #If the enter button is pressed and it is not the start of the game
+        if user_input.get() == next_word["text"]: #checking if entered word is correct
             score += 1
             score_board.configure(text=score)
             
-        count_words +=1 # bendras  zodziu skaicius ivedimas
+        count_words +=1 # counting words
         if (count_words <10):
             random.shuffle(words)
-            next_word.configure(text=words[0]) #pirmas words listo elementas "next_word" lable
+            next_word.configure(text=words[0]) #first element in "next_word" label
             user_input.delete(0, END)
             
-        else:
-            result = Label(win, text="Test results:", font=("Arial", 24, "bold"), fg="dark blue", bg="#007ACC")
+        else: # add widgets and show results
+            result = Label(win, text="Test results:", font=("Arial", 24, "bold"), fg="dark blue", bg="#007ACC") 
             result.place(x=230, y=150)
             result.configure(text="Time taken = {} \n Your score = {} \n Missed words = {}"
                             .format(time, score, count_words-score))
